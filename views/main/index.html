@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css"/>
+</head>
+<body>
+    <h1>欢迎来到我的博客啊!!!</h1>
+    {%if userInfo._id%}
+    <div>{{userInfo.username}}</div>
+    {%else%}
+    <div>2</div>
+    {%endif%}
+</body>
+</html>

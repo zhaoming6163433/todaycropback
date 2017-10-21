@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/main.css"/>
+</head>
+<body>
+<h1>用户信息</h1>
+{% block main %}
+    <h2>用户列表</h2>
+    <table>
+        {% for user in users %}
+            <tr>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
+                <td>{% if user.isAdmin%} 是 {% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+</body>
+</html>
