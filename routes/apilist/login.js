@@ -3,7 +3,7 @@ var express = require('express');
 var extend = require('node.extend');
 var router = express.Router();
 var User = require('../../models/User');
-var read = require('node-readability');
+var md5 = require('../../public/js/md5');
 
 
 /**
@@ -18,11 +18,10 @@ var read = require('node-readability');
  *      数据库查询
  */
 router.post('/user_register',function(req,res,next){
-    console.log(req.body);
 
     var username = req.body.username;
-    var password = req.body.password;
-    var repassword = req.body.repassword;
+    var password = md5(req.body.password);
+    var repassword = md5(req.body.repassword);
     //用户名不能为空
     if( username == '' || username == undefined ){
         res.responseData.code = 0;
@@ -100,9 +99,8 @@ router.post('/user_islogin',function(req,res){
  登录
  */
 router.post('/user_login',function(req,res){
-
     var username = req.body.username;
-    var password = req.body.password;
+    var password = md5(req.body.password);
 
     if( username == ''|| username == undefined || password == ''|| password == undefined){
         res.responseData.code = 0;
@@ -115,7 +113,7 @@ router.post('/user_login',function(req,res){
     User.findOne({
         username: username,
         password: password
-    }).then((userInfo)=>{
+    }).then(function(userInfo){
         if(!userInfo){
             res.responseData.code = 0;
             res.responseData.message = '用户名或密码错误';

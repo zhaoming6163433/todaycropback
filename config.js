@@ -7,7 +7,7 @@
  * domain: 域名地址
  *
  */
-var domain = 'http://192.168.1.104:8081';
+var domain = 'http://10.6.20.104:8081';
 
 var dburl = 'mongodb://localhost:27018/blog';
 

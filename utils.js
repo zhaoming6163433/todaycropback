@@ -10,7 +10,7 @@ var utils = {
             .src(url, ['186x150'],{crop: true})//186x144
             .dest(source+'/public/cdn')
             .run()
-            .then((res) => {
+            .then(function(res){
                 console.log('图片抓取成功');
                 callback(null,config.domain+'/public/cdn/'+res[0].filename);
             }).catch(function(error){
