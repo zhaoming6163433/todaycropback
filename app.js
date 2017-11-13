@@ -32,6 +32,7 @@ app.all('/api/*', function(req, res, next) {
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
 app.use('/public',express.static(__dirname+'/public'));
+app.use('/todaypocket',express.static(__dirname+'/todaypocket'));
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
 app.engine('html',swig.renderFile);
@@ -80,9 +81,9 @@ app.use( function(req,res,next){
 /**
  * 根据不同的功能划分模块
  */
-app.use('/api',require('./routes/api'));
 app.use('/',require('./routes/main'));
 
+app.use('/api',require('./routes/api'));
 
 //监听http请求
 
@@ -91,6 +92,6 @@ mongoose.connect(config.dburl, { useMongoClient: true },function(err){
         console.log('数据库连接失败');
     }else{
         console.log('数据库连接成功');
-        app.listen(8081);
+        app.listen(80);
     }
 });

@@ -7,9 +7,9 @@
  * domain: 域名地址
  *
  */
-var domain = 'http://10.6.20.104:8081';
+var domain = 'http://47.52.227.158';//'http://10.6.20.104:8081'
 
-var dburl = 'mongodb://localhost:27018/blog';
+var dburl = 'mongodb://zhaoming:zhaoming@127.0.0.1/databaseFoo';//'mongodb://localhost:27018/blog';
 
 module.exports = {
     domain,
