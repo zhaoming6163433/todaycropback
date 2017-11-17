@@ -37,7 +37,7 @@ app.use('/todaypocket',express.static(__dirname+'/todaypocket'));
 //第一个参数模板名称，第二个参数模板方法
 app.engine('html',swig.renderFile);
 //设置模板文件存放都目录，第一个参数必须是views,第二个参数是目录
-app.set('views','./views');
+app.set('views',__dirname + '/views');
 //注册所使用都模板引擎，第一个参数必须是view engine,第二个参数和app.engine这个方法中定义的模板引擎的名称是一致的
 app.set('view engine','html');
 //在开发过程中，需要取消模板缓存
