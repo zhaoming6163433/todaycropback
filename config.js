@@ -9,7 +9,7 @@
  */
 var domain = 'http://47.52.227.158';//'http://10.6.20.104:8081'
 
-var dburl = 'mongodb://zhaoming:zhaoming@locahost:27017/databaseFoo';//'mongodb://localhost:27018/blog';
+var dburl = 'mongodb://zhaoming:zhaoming@172.31.196.178:27017/databaseFoo';//'mongodb://localhost:27018/blog';
 
 module.exports = {
     domain,
