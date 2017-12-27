@@ -57,7 +57,7 @@ app.use(function(req,res,next){
             req.userInfo = JSON.parse(req.cookies.userInfo);
             //获取当前用户登录的类型 是否是管理员
             User.findById(req.userInfo._id).then(function(userInfo){
-                if(userInfo.isAdmin) req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
+                if(userInfo&&userInfo.isAdmin) req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
                 next();
             })
         }catch(e){
@@ -92,6 +92,6 @@ mongoose.connect(config.dburl, { useMongoClient: true },function(err){
         console.log('数据库连接失败');
     }else{
         console.log('数据库连接成功');
-        app.listen(80);
+        app.listen(8080);
     }
 });
