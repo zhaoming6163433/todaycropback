@@ -20,8 +20,8 @@ var md5 = require('../../public/js/md5');
 router.post('/user_register',function(req,res,next){
 
     var username = req.body.username;
-    var password = md5(req.body.password);
-    var repassword = md5(req.body.repassword);
+    var password = req.body.password;
+    var repassword = req.body.repassword;
     //用户名不能为空
     if( username == '' || username == undefined ){
         res.responseData.code = 0;
@@ -43,7 +43,8 @@ router.post('/user_register',function(req,res,next){
         res.json(res.responseData);
         return;
     }
-
+    password = md5(password);
+    repassword = md5(repassword);
     //用户名是否已经被注册了，如果数据库中存在注册数据，表示该用户已经注册
     User.findOne({
         username: username
