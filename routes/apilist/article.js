@@ -11,6 +11,7 @@ var WebSite = require('../../models/WebSite');//添加地址表
 var UrlInfo = require('../../models/UrlInfo');//地址详情
 var SeekInfo = require('../../models/SeekInfo');//类别表
 var TypeCounters = require('../../models/TypeCounters');//类别序列表
+var BlogArtAdd = require('../../models/BlogArtAdd');//添加博客内容
 var utils = require('../../utils');
 
 /**
@@ -533,4 +534,63 @@ router.post('/up_url_seek',function(req,res){
         res.json(res.responseData);
     })
 });
+/**
+ *  博客创建文章
+ *  params:{
+ *      _id:类别id
+ *  }
+ */
+router.post('/add_blog_art',function(req,res,next) {
+    //登录校验
+    var islogin = utils.checklogin(req, res);
+    if(!islogin){ return; }
+
+    var userid = islogin._id;
+    var title = req.body.title;
+    var content = req.body.content;
+
+    var blogart = new BlogArtAdd({
+        userid: userid,
+        title: title,
+        date:new Date().getTime(),
+        content:content
+    });
+    blogart.save().then(function(){
+        res.responseData.code = 200;
+        res.responseData.message = '保存成功';
+        res.json(res.responseData);
+        return;
+    }).catch(function(error){
+        console.log(error)
+        res.responseData.code = 0;
+        res.responseData.message = '保存失败';
+        res.json(res.responseData);
+        return;
+    });
+
+});
+
+/**查找文章*/
+router.post('/getartlist',function(req,res,next){
+    //登录校验
+    var islogin = utils.checklogin(req, res);
+    if(!islogin){ return; }
+    var userid = islogin._id;
+
+    BlogArtAdd.find({
+        userid: userid
+    }).then(function( Info ){
+        res.responseData.code = 200;
+        res.responseData.message = '成功';
+        res.responseData.result = Info;
+        res.json(res.responseData);
+
+    }).catch(function(err){
+        console.log(err.message);
+        res.responseData.code = 0;
+        res.responseData.message = err.message;
+        res.json(res.responseData);
+    })
+});
+
 module.exports = router;
