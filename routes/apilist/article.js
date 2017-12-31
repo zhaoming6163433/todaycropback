@@ -569,10 +569,7 @@ router.post('/add_blog_art',function(req,res,next) {
 
 /**查找文章*/
 router.post('/getartlist',function(req,res,next){
-    //登录校验
-    var islogin = utils.checklogin(req, res);
-    if(!islogin){ return; }
-    var userid = islogin._id;
+    var userid = req.body._id;
 
     BlogArtAdd.find({
         userid: userid
