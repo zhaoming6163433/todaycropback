@@ -541,11 +541,8 @@ router.post('/up_url_seek',function(req,res){
  *  }
  */
 router.post('/add_blog_art',function(req,res,next) {
-    //登录校验
-    var islogin = utils.checklogin(req, res);
-    if(!islogin){ return; }
 
-    var userid = islogin._id;
+    var userid = req.body._id;
     var title = req.body.title;
     var content = req.body.content;
 
