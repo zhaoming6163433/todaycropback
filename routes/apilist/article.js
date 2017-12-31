@@ -587,4 +587,25 @@ router.post('/getartlist',function(req,res,next){
     })
 });
 
+/**
+ * 查找详情
+ */
+router.post('/getartdetail',function(req,res,next) {
+
+    var userid = req.body.id;
+    BlogArtAdd.findOne({
+        _id: id
+    }).then(function (Info) {
+        res.responseData.code = 200;
+        res.responseData.message = '成功';
+        res.responseData.result = Info;
+        res.json(res.responseData);
+    }).catch(function(err){
+        console.log(err.message);
+        res.responseData.code = 0;
+        res.responseData.message = err.message;
+        res.json(res.responseData);
+    })
+
+});
 module.exports = router;
