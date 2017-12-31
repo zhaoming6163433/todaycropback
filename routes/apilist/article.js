@@ -592,7 +592,7 @@ router.post('/getartlist',function(req,res,next){
  */
 router.post('/getartdetail',function(req,res,next) {
 
-    var userid = req.body.id;
+    var id = req.body.id;
     BlogArtAdd.findOne({
         _id: id
     }).then(function (Info) {
