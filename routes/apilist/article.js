@@ -270,6 +270,28 @@ router.post('/get_seek',function(req,res,next) {
 });
 
 /**
+ * 获取公开当前用户的类别
+ */
+router.post('/get_my_seek',function(req,res,next) {
+    var userid = req.body._id;
+
+    //如果当前用户类别名称相同就提示不添加
+    SeekInfo.find({
+        userid: userid
+    },{'_id':1,'sort':1, 'type':1,'seekname':1}).sort({sort: 1}).then(function( Info ){
+        res.responseData.code = 200;
+        res.responseData.message = '获取成功';
+        res.responseData.result = Info;
+        res.json(res.responseData);
+    }).catch(function(err){
+        console.log(err.message);
+        res.responseData.code = 0;
+        res.responseData.message = err.message;
+        res.json(res.responseData);
+    })
+
+});
+/**
  * 修改类别顺序
  */
 router.post('/update_seeksort',function(req,res,next) {
@@ -587,6 +609,26 @@ router.post('/getartlist',function(req,res,next){
     })
 });
 
+/**查找文章*/
+router.post('/getartlist',function(req,res,next){
+    var userid = req.body._id;
+
+    BlogArtAdd.find({
+        userid: userid
+    }).then(function( Info ){
+        res.responseData.code = 200;
+        res.responseData.message = '成功';
+        res.responseData.result = Info;
+        res.json(res.responseData);
+
+    }).catch(function(err){
+        console.log(err.message);
+        res.responseData.code = 0;
+        res.responseData.message = err.message;
+        res.json(res.responseData);
+    })
+});
+
 /**
  * 查找详情
  */
@@ -608,4 +650,6 @@ router.post('/getartdetail',function(req,res,next) {
     })
 
 });
+
+
 module.exports = router;
