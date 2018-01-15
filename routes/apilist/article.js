@@ -651,5 +651,29 @@ router.post('/getartdetail',function(req,res,next) {
 
 });
 
+/**
+ * 删除文章
+ */
+router.post('/delartdetail',function(req,res,next) {
+
+    var id = req.body.id;
+
+    var del  = {id:id};
+
+    BlogArtAdd.remove(del,function(err,result){
+        if(err){
+            res.responseData.code = 0;
+            res.responseData.message = err.message;
+            res.json(res.responseData);
+        }else{
+            res.responseData.code = 200;
+            res.responseData.message = '成功';
+            res.responseData.result = Info;
+            res.json(res.responseData);
+        }
+    });
+
+
+});
 
 module.exports = router;
