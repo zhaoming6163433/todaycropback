@@ -658,7 +658,7 @@ router.post('/delartdetail',function(req,res,next) {
 
     var id = req.body.id;
 
-    var del  = {id:id};
+    var del  = {_id:id};
 
     BlogArtAdd.remove(del,function(err,result){
         if(err){
