@@ -668,7 +668,7 @@ router.post('/delartdetail',function(req,res,next) {
         }else{
             res.responseData.code = 200;
             res.responseData.message = '成功';
-            res.responseData.result = Info;
+            res.responseData.result = result;
             res.json(res.responseData);
         }
     });
