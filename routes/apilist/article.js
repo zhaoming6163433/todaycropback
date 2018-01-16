@@ -86,6 +86,7 @@ router.post('/add_website',function(req,res,next){
                 //初始化对象
                 var urlinfobj = {
                     articleres: {},
+                    title:'',
                     domain: utils.domainURI(url),
                     logoimg: '',
                     userid: userid,
@@ -137,6 +138,7 @@ router.post('/add_website',function(req,res,next){
                     //保存用户注册的信息到数据库中 操作对象来操作数据库
                     if (articleres) {
                         extend(urlinfobj.articleres, articleres);
+                        urlinfobj.title = articleres.title;
                     }
                     urlinfobj.logoimg = logoimg;
                     var urlinfo = new UrlInfo(urlinfobj);

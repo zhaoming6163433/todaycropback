@@ -16,6 +16,8 @@ module.exports = new mongoose.Schema({
         content: String,
         html: String
     },
+    //文章标题
+    title: String,
     //用户id
     userid: String,
     //文章可读性
