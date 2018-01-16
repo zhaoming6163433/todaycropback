@@ -364,6 +364,7 @@ router.get('/getArticle',function(req,res,next){
  *  连表查询用户url对应的详情
  */
 router.post('/getWebUrlInfo',function(req,res,next){
+    console.log('111 getWebUrlInfo')
     var islogin = utils.checklogin(req, res);
     if(!islogin){ return; }
     var userid = req.body.id;
@@ -375,10 +376,12 @@ router.post('/getWebUrlInfo',function(req,res,next){
     var params = {userid:userid};
 
     typeid ? params = {userid:userid, typeid:typeid}:'';
-
+    console.log(params)
     WebSite.count(params).then(function( totoalnum ){
+        console.log(totoalnum)
         WebSite.find(params).populate('_urlinfo',{ __v:0}).limit(pageSize)
             .skip(page).sort({createTime: -1}).exec(function(err, list) {
+            console.log(list)
             if(err){
                 console.log(err);
                 res.responseData.code = 0;
