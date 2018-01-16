@@ -376,7 +376,7 @@ router.post('/getWebUrlInfo',function(req,res,next){
 
     typeid ? params = {userid:userid, typeid:typeid}:'';
     WebSite.count(params).then(function( totoalnum ){
-        WebSite.find(params).populate('_urlinfo',{ __v:0}).limit(pageSize)
+        WebSite.find(params).populate('_urlinfo',{ __v:0,articleres:0}).limit(pageSize)
             .skip(page).sort({createTime: -1}).exec(function(err, list) {
             if(err){
                 console.log(err);
@@ -408,7 +408,7 @@ router.get('/public_article',function(req,res,next){
     var page = (parseInt(pageNum)-1)*pageSize;
 
     WebSite.count({setpublic:true}).then(function( totoalnum ){
-        WebSite.find({setpublic:true}).populate('_urlinfo',{ articleres:1}).limit(pageSize)
+        WebSite.find({setpublic:true}).populate('_urlinfo',{ __v:0 ,articleres:0}).limit(pageSize)
             .skip(page).sort({quantity: -1}).exec(function(err, list) {
             if(err){
                 console.log(err);
