@@ -11,6 +11,8 @@ module.exports = new Schema({
     userid: String,
     //地址
     url: String,
+    //标题
+    title: String,
     //所属分类
     type: String,
     //所属类别id

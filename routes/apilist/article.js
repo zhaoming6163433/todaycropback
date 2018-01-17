@@ -27,6 +27,7 @@ router.post('/add_website',function(req,res,next){
     var url = req.body.url;
     var type = req.body.type;
     var typeid = req.body.typeid;
+    var title = req.body.title;
     var ispublic = req.body.ispublic;
     var islogin = utils.checklogin(req,res);
 
@@ -55,6 +56,7 @@ router.post('/add_website',function(req,res,next){
                 //保存用户注册的信息到数据库中 操作对象来操作数据库
                 var website = new WebSite({
                     userid: userid,
+                    title: title,
                     url: url,
                     typeid: typeid,
                     quantity: 0,
