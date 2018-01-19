@@ -7,7 +7,7 @@
  * domain: 域名地址
  *
  */
-var domain = 'http://47.52.227.158';//'http://10.6.20.104:8081' http://47.52.227.158
+var domain = 'http://www.todaypocket.cn';//'http://10.6.20.104:8081' http://47.52.227.158
 
 var dburl = 'mongodb://47.52.227.158:27017/databaseFoo';//'mongodb://localhost:27018/blog'; mongodb://@127.0.0.1/databaseFoo
 
