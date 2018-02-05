@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background:#000000;
+            color:#ffffff;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+                
+                oGC.fillRect(0,0,100,100);
+                //获取像素值
+                var oImg = oGC.getImageData(0,0,100,100);
+
+                console.log('一行的像素个数'+oImg.width);
+
+                console.log('一列的像素个数'+oImg.height);
+
+                //console.log('整体像素的数组集合'+oImg.data);
+                console.log(oImg.data[0])
+                console.log(oImg.data[1])
+                console.log(oImg.data[2])
+                console.log(oImg.data[3]) //不透明的
+                //每个像素占4个位置 rgba
+                console.log('长度'+oImg.data.length);
+                //修改像素值
+                for(var i=0;i<oImg.width*oImg.height;i++){
+                    oImg.data[4*i] = 255;
+                    oImg.data[4*i+1] = 0;
+                    oImg.data[4*i+2] = 0;
+                    oImg.data[4*i+3] = 100;
+                }
+                oGC.putImageData(oImg,100,100);
+
+                //创建新像素集合
+                var oImg = oGC.createImageData(100,100);
+
+                for(var i=0;i<oImg.width*oImg.height;i++){
+                    oImg.data[4*i] = 255;
+                    oImg.data[4*i+1] = 0;
+                    oImg.data[4*i+2] = 0;
+                    oImg.data[4*i+3] = 100;
+                }
+                oGC.putImageData(oImg,200,200);
+
+
+                var ali = document.getElementsByTagName('li');
+
+                for(var i=0;i<ali.length;i++){
+                    ali[i].onclick = function(){
+                        var str = this.innerHTML;
+                        console.log(str)
+                        var h = 180;
+
+                        oGC.clearRect(0,0,oC.width,oC.height);
+
+                        oGC.font =  h+ 'px impact';
+
+                        oGC.fillStyle = 'red';
+
+                        oGC.textBaseline = 'top';
+
+                        var w = oGC.measureText(str).width;
+
+                        oGC.fillText(str,(oC.width-w)/2,(oC.height -h)/2);
+
+                        var oImg = oGC.getImageData((oC.width-w)/2,(oC.height -h)/2,w,h);
+                        oGC.clearRect(0,0,oC.width,oC.height);
+
+                        var arr = randomArr(w*h,w*h/10);
+                        var newImg = oGC.createImageData(w,h);
+                        for(var i=0;i<arr.length;i++){
+                            newImg.data[4*arr[i]] = oImg.data[4*arr[i]];
+                            newImg.data[4*arr[i]+1] = oImg.data[4*arr[i]+1];
+                            newImg.data[4*arr[i]+2] = oImg.data[4*arr[i]+2];
+                            newImg.data[4*arr[i]+3] = oImg.data[4*arr[i]+3];
+                        }
+
+                        oGC.putImageData(newImg,(oC.width-w)/2,(oC.height -h)/2);
+                    }
+                }
+                //随机像素值
+                function randomArr(iAll,iNow){
+                    var arr = [];
+                    var newArr = [];
+                    for(var i=0;i<iAll;i++){
+                        arr.push(i);
+                    }
+                    for(var i=0;i<iNow;i++){
+                        newArr.push( arr.splice( Math.floor( Math.random()*arr.length) ,1) );
+                    }
+                    return newArr;
+                }
+            }
+            
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+    <div style="float:left">
+        <ul >
+            <li>我</li>
+            <li>的</li>
+            <li>课</li>
+            <li>堂</li>
+        </ul>
+    </div>
+</body>
+</html>

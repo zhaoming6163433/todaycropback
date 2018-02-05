@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background:#000000;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+
+                //保存路径相当于局部变量
+                oGC.save();
+                oGC.fillStyle = 'red';
+                oGC.lineWidth = 10;
+                oGC.strokeStyle = 'blue';//外边框颜色
+                oGC.lineJoin = 'round';//圆角边
+                oGC.lineJoin = 'bevel';//斜角边
+
+                oGC.strokeRect(50.5,50.5,100,100);
+                oGC.fillRect(50,50,100,100);
+                //恢复路径路径
+                oGC.restore();
+
+                //绘制路径
+                oGC.beginPath();
+
+                oGC.moveTo(100, 100);
+                
+                oGC.lineTo(200,200);
+
+                oGC.lineTo(300,200);
+
+                oGC.closePath();
+                
+                oGC.stroke();
+                
+                //再绘制一个
+                oGC.beginPath();
+
+                oGC.moveTo(100, 200);
+                
+                oGC.lineTo(200,300);
+
+                oGC.lineTo(300,300);
+
+                oGC.closePath();
+                
+                oGC.fill();
+
+                //再绘制一个方块
+                oGC.beginPath();
+
+                oGC.rect(100,100,100,100);
+
+                oGC.closePath();
+                
+                oGC.fill();
+
+                //清空一块区域
+                oGC.clearRect(100, 100, 10, 10);
+
+                oGC.save();
+                oGC.lineWidth = 20;
+                //高度多出为宽一半的值
+                oGC.lineCap = 'square';
+                
+                oGC.moveTo(300,300);
+                oGC.lineTo(350,400);
+                oGC.stroke();
+                oGC.restore();
+                
+            }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+</body>
+</html>

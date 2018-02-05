@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/howler.js"></script>
+    <style>
+        body{
+            background:#000000;
+            color:#ffffff;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                var musicTween;
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+                var sound = new Howl({
+                    urls: ['audio/sound.ogg', 'audio/sound.m4a'],
+                    sprite: {
+                        hitBlock: [0, 950],
+                        gem0: [1000, 700],
+                        gem1: [2000, 700],
+                        gem2: [3000, 700],
+                        gem3: [4000, 700],
+                        click: [5000, 400],
+                        collectPowerUp: [5500, 1200],
+                        fall: [7000, 2000],
+                        boost: [9500, 1200],
+                        startGame: [11500, 1200],
+                        jump: [13000, 800],
+                        makeTurn: [14000, 700],
+                        sideStep: [15000, 500],
+                        duck: [16000, 600],
+                        powerUpEnd: [17000, 600]
+                    }
+                });
+                var music = new Howl({
+                    urls: ['audio/music.ogg', 'audio/music.m4a'],
+                    volume: .01,
+                    loop: true,
+                    onend: function() {
+                        alert(111)
+                    }
+                });
+                
+                function playSound(G) {
+                    sound.play(G);
+                }
+
+                //music.play();
+
+                if (musicTween) {
+                    musicTween.kill();
+                }
+                musicTween = TweenLite.to(music, 3, {
+                    volume: .5,
+                    ease: "Linear.easeNone"
+                });
+                // setTimeout(function(){
+                //     musicTween.kill();
+                //     music.pause();
+                // },3000);
+                playSound('click');
+
+
+                
+
+                var ele=document.createElement("img");
+                ele.src="img/logo.png";
+                document.body.appendChild(ele)
+                ele.onload = function(){
+                    TweenLite.to(this, 3, {
+                        alpha:0.5,
+                        rotation:160,
+                        x:100,
+                        y:200,
+                        ease: "Linear.easeNone"
+                    });
+                } 
+            }
+            
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="500" height="500">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+    
+    </div>
+</body>
+</html>

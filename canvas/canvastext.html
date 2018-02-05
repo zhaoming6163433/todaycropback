@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background:#000000;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                //曲线
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+                
+                oGC.font = '60px impact';
+                oGC.save();
+                //左上角
+                oGC.textBaseline='top';
+                //阴影 默认黑色透明
+                oGC.shadowOffsetX = 10;
+                oGC.shadowOffsetY = 10;
+                oGC.shadowBlur = 2;
+                oGC.shadowColor = 'yellow';
+                
+                oGC.fillText('我的课堂',0,0);
+                oGC.strokeText('呵呵呵',0,200);
+                oGC.restore();
+
+                var w = oGC.measureText('我的课堂2').width;
+                oGC.fillText('我的课堂2',(oC.width - w)/2,(oC.height - 60)/2);
+            }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+</body>
+</html>

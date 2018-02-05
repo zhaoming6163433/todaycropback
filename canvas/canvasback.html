@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background:#000000;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                //曲线
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+                
+                var obj = oGC.createLinearGradient(150,100,150,200);
+
+
+                obj.addColorStop(0,'red');
+                obj.addColorStop(0.5,'yellow');
+                obj.addColorStop(1,'blue');
+                oGC.fillStyle = obj;
+                oGC.fillRect(300,100,100,100);
+
+                //放射性渐变
+                var obj1 = oGC.createRadialGradient(300, 300, 50, 300, 300, 70);
+                obj1.addColorStop(0,'red');
+                obj1.addColorStop(0.5,'yellow');
+                obj1.addColorStop(1,'blue');
+                oGC.fillStyle = obj1;
+                oGC.fillRect(300,300,100,100);
+
+
+
+                var yImg = new Image();
+
+                yImg.onload = function(){
+                    draw(this);
+                }
+
+                yImg.src = 'img/logo.png';
+
+                function draw(obj){
+                    var bg = oGC.createPattern(obj,'repeat');
+                    oGC.fillStyle = bg;
+                    oGC.fillRect(0,0,300,300);
+                }
+            }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+</body>
+</html>

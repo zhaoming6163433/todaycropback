@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta id="viewport" name="viewport" content="width=640px,initial-scale=0.5,minimum-scale=0.5,maximum-scale=1.0,user-scalable=no,target-densitydpi=device-dpi" />
+    <title>点亮灯泡</title>
+    <style>
+        body{
+            font-size:0;
+            padding:0;
+            margin: 0;
+            background:#000000;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onresize = function(){
+                window.requestAnimationFrame(function () {
+                    var AvailableWidth = screen.width;
+                    viewport = document.getElementById("viewport");
+                    console.log(AvailableWidth)
+                    viewport.content="width=640px,initial-scale="+AvailableWidth/640+",minimum-scale=0.5,maximum-scale=2.0,user-scalable=no,target-densitydpi=device-dpi";
+                });
+            }
+            window.onload = function(){
+                var AvailableWidth = screen.width;
+                viewport = document.getElementById("viewport");
+                viewport.content="width=640px,initial-scale="+AvailableWidth/640+",minimum-scale=0.5,maximum-scale=2.0,user-scalable=no,target-densitydpi=device-dpi";
+                //加载过的图片数组
+                var imgarry = [];
+
+                var timeout = '';
+
+                var longbright = false;
+                
+                var oC = document.getElementById('c1'); 
+
+                var oGC = oC.getContext('2d');
+
+                //按钮样式
+                var btnnum = 9;
+                var btnflag = true; //++
+
+                //开始按钮
+                var startx = 322;
+                var starty = 694;
+                var startr = 150;
+                var startime = '';
+                var startflag = false;
+                
+                oC.height = window.innerHeight;
+                
+                oC.width  = window.innerWidth;
+
+                
+                //旋转背景
+                var num = 0;
+                
+                //背景图片
+                //y轴偏移量
+                var _y = 0;
+                //x轴偏移量
+                var _x = 0;
+                //偏移方向 false左 true右
+                var leftoright = false;
+
+                //判断图片加载进度
+                var loadImage = function (callback) {
+                    var imgs = ['img/light.png','img/light2.png','img/btn.png','img/btn2.png','img/topFlare.png','img/background0.jpg'], count = 0;
+
+                    for (var i = 0; i < imgs.length; i++) {
+                        var img = new Image();
+                        img.src = imgs[i];
+                        imgarry.push(img);
+                        img.onload = function () {
+                            count++;
+                            callback(count,imgs);
+                        }
+                    }
+                }
+
+                //点亮灯泡
+                var lighting = function(){
+                    timeout = setTimeout(function(){
+                        longbright = true;
+                        startflag = true;
+                        //直接画
+                        startime = setInterval(function(){
+                            draw();
+                        },10);
+                    },300);
+                    oGC.drawImage(imgarry[1],oC.width/5.1,imgarry[1].height*oC.width/(1.146*imgarry[1].width),oC.width/9.3,imgarry[1].height*oC.width/(9.3*imgarry[1].width));
+                }
+                //熄灭灯泡
+                var closelight = function(){
+                    oGC.clearRect(0,0,oC.width,oC.height);
+                    oGC.drawImage(imgarry[0],0,0,oC.width,imgarry[0].height*oC.width/imgarry[0].width);
+                }
+                //重新画
+                var draw = function(){
+
+                    oGC.save();
+                    
+                    oGC.fillStyle = '#ffffff';
+
+                    oGC.fillRect(0,0,oC.width,oC.height);
+
+                    oGC.drawImage(imgarry[0],0,0,oC.width,imgarry[0].height*oC.width/imgarry[0].width);
+
+                    oGC.drawImage(imgarry[1],oC.width/5.1,imgarry[1].height*oC.width/(1.146*imgarry[1].width),oC.width/9.3,imgarry[1].height*oC.width/(9.3*imgarry[1].width));
+                    
+                    if(btnnum >= 10){
+                        btnflag = false;
+                    }
+                    if(btnnum <= 9){
+                        btnflag = true;
+                    }
+                    if(btnflag){
+                        btnnum = btnnum+0.1;
+                    }else{
+                        btnnum = btnnum-0.1;
+                    }
+
+                    oGC.save();
+                    
+                    //黑色透明背景
+                    oGC.fillStyle = 'rgba(0, 0, 0, 0.6)';
+
+                    oGC.fillRect(0,0,oC.width,oC.height);
+
+                    //设置背景
+                    _y = _y+1;
+
+                    if(_x>=oC.width/2){
+                        leftoright = true;
+                    }
+
+                    if(_x<=0){
+                        leftoright = false;
+                    }
+                    if(leftoright){
+                        if(_x<=30){
+                            _x = _x-0.5;
+                        }else{
+                            if(_x>=oC.width/2-30&&_x<oC.width/2){
+                                _x = _x-0.5;
+                            }else{
+                                _x = _x -1;
+                            }
+                        }
+                    }else{
+                        if(_x>=oC.width/2-30){
+                            _x = _x+0.5;
+                        }else{
+                            if(_x>=0&&_x<30){
+                                _x = _x+0.5;
+                            }else{
+                                _x = _x+1;
+                            }
+                        }
+                    }
+
+                    if(_y>=(imgarry[5].height*(640/AvailableWidth)-oC.height)){
+
+                        _y = imgarry[5].height*(640/AvailableWidth)/2-oC.height;
+
+                    }
+
+                    oGC.drawImage(imgarry[5],-imgarry[5].width*(640/AvailableWidth)/2+oC.width/2+_x,-imgarry[5].height*(640/AvailableWidth)+oC.height+_y,imgarry[5].width*(640/AvailableWidth),imgarry[5].height*(640/AvailableWidth)); 
+                    
+                    //光线
+
+                    num = num + 0.7;
+
+                    if(num>=360){
+                        num = 0;
+                    }
+
+                    oGC.translate(oC.width/2,500);
+
+                    oGC.rotate(num*Math.PI/180);
+
+                    oGC.scale(1.5, 1.5);
+
+                    oGC.drawImage(imgarry[4],-imgarry[4].width/2,-imgarry[4].height/2);
+
+                    oGC.restore();
+
+                    oGC.fillStyle = '#ffffff';
+
+                    oGC.drawImage(imgarry[2],320-(150/btnnum)*5,700-(75/10)*btnnum,(startr/btnnum)*10,(startr/10)*btnnum);
+
+                    oGC.drawImage(imgarry[3],100,300,445,274);
+                    
+                    oGC.restore();
+
+                    oGC.save();
+
+                    oGC.font = '40px impact';
+
+                    oGC.textBaseline='top';
+
+                    oGC.fillStyle = "#ffffff";
+
+                    oGC.strokeStyle = "#ffffff";
+
+                    //阴影 默认黑色透明
+                    oGC.shadowOffsetX = 2;
+                    oGC.shadowOffsetY = 2;
+                    oGC.shadowBlur = 2;
+                    oGC.shadowColor = '#000000';
+
+                    var w = oGC.measureText('厉害了！老铁').width;
+                    oGC.fillText('厉害了！老铁',(oC.width - w)/2,465);
+
+                    oGC.restore();
+                    
+                    
+                }
+
+                var touchstartfn = function(event){
+                    var touch = event.targetTouches;
+                    var r = oC.width/20;
+                    var line1x = oC.width/2.4;
+                    var line1y = imgarry[1].height*oC.width/(1.126*imgarry[1].width);
+                    var line2x = oC.width/1.32;
+                    var line2y = imgarry[1].height*oC.width/(1.65*imgarry[1].width);
+
+                    var isbright1 = false;
+                    var isbright2 = false;
+
+                    oGC.fillStyle='#ffffff';
+
+                    if (event.targetTouches.length == 1) {
+                         //测试打开
+                         //lighting();
+                    }else{
+                        for(var i=0;i<event.targetTouches.length;i++){
+
+                            //如果任何两个点在1/30屏幕宽度范围内就亮起
+                            var _x = touch[i].pageX-oC.offsetLeft;
+                            var _y = touch[i].pageY-oC.offsetTop;
+
+                            if(Math.abs(_x-line1x)<r&&Math.abs(_y-line1y)<r){
+                                isbright1 = true;
+                            }
+                            if(Math.abs(_x-line2x)<r&&Math.abs(_y-line2y)<r){
+                                isbright2 = true;
+                            }
+                        }
+                        if(isbright1&&isbright2){
+                            if(!longbright) lighting();
+                        }
+                    }
+                }
+                var touchendfn = function(){
+                    if(!longbright){
+                        clearTimeout(timeout);
+                        closelight();
+                    }
+                }
+                var clickfn = function(event){
+
+                        var _x = event.pageX-oC.offsetLeft;
+                        var _y = event.pageY-oC.offsetTop;
+                        
+                        if(startflag&&Math.abs(_x-startx)<startr/2&&Math.abs(_y-starty)<startr/2){
+                            reload();
+                        }
+                }
+                //刷新
+                var reload = function(){
+
+                    clearInterval(startime);
+
+                    longbright = false;
+
+                    startflag = false;
+
+                    oGC.clearRect(0,0,oC.width,oC.height);
+
+                    oGC.drawImage(imgarry[0],0,0,oC.width,imgarry[0].height*oC.width/imgarry[0].width);
+
+                    oC.removeEventListener('touchstart',touchstartfn,false); 
+
+                    oC.removeEventListener('touchend',touchendfn,false);
+
+                    oC.removeEventListener('click',clickfn,false);
+
+                    oC.addEventListener('touchstart', touchstartfn, false);
+
+                    oC.addEventListener('touchend', touchendfn, false);
+
+                    oC.addEventListener('click', clickfn, false);
+                }
+                loadImage(function(count,imgs){
+                    
+                    if (count == imgs.length) {
+
+                        reload();
+                        
+                    } 
+                }); 
+            }
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="100%" height="100%" >
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+</body>
+</html>

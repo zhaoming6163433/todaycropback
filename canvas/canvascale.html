@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>canvas布局适配</title>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui" />
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+            font-size: 0;
+            text-align: center;
+			background: url("img/bg.jpg");
+		}	
+        #canvas{
+            background-color:#ffffff;
+        }
+	</style>
+	
+	<script>
+        var requestAnimFrame = (function() {
+            return window.requestAnimationFrame || (window).webkitRequestAnimationFrame || (window).mozRequestAnimationFrame || (window).oRequestAnimationFrame || window.msRequestAnimationFrame || function(G) {
+                window.setTimeout(G, 1000 / 60, new Date().getTime());
+            };
+        })()
+        var viewporter = function(){
+
+            window.requestAnimationFrame(function () {
+
+                    var oC = document.getElementById('canvas');
+
+                    var initscale = 375/667;
+
+                    var AvailableWidth = document.documentElement.clientWidth;
+                    
+                    var AvailableHeight = document.documentElement.clientHeight;
+
+                    var scale = AvailableWidth/AvailableHeight;
+
+                    if(scale>initscale){
+                        
+                        oC.style.marginTop = '0px';
+                        
+                        oC.height = Math.ceil(AvailableHeight);
+
+                        oC.width = Math.ceil(AvailableHeight*initscale);
+
+                    }else{
+
+                        oC.width  = Math.ceil(AvailableWidth);
+
+                        oC.height = Math.ceil(AvailableWidth/initscale);
+
+                        oC.style.marginTop = Math.ceil((AvailableHeight - oC.height)/2)+'px';
+
+                    }
+
+            });
+
+        }
+        window.onresize = function(){
+            viewporter();
+        }
+        window.onload = function(){
+            viewporter();
+
+            var oC = document.getElementById('canvas'); 
+
+            var oGC = oC.getContext('2d');
+
+            var img = new Image();
+
+            img.src = "img/background0.jpg";
+
+            img.onload = function () {
+                //y轴偏移量
+                var _y = 0;
+                //x轴偏移量
+                var _x = 0;
+                //偏移方向 false左 true右
+                var leftoright = false;
+
+                // 平铺方式
+
+                var draw = function(){
+
+                    _y = _y+3;
+
+                    oGC.clearRect(0,0,oC.width,oC.height);
+
+                    if(_x>=oC.width/2){
+                        leftoright = true;
+                    }
+
+                    if(_x<=0){
+                        leftoright = false;
+                    }
+                    if(leftoright){
+                        if(_x<=30){
+                            _x = _x-0.5;
+                        }else{
+                            if(_x>=oC.width/2-30&&_x<oC.width/2){
+                                _x = _x-0.5;
+                            }else{
+                                _x--;
+                            }
+                        }
+                    }else{
+                        if(_x>=oC.width/2-30){
+                            _x = _x+0.5;
+                        }else{
+                            if(_x>=0&&_x<30){
+                                _x = _x+0.5;
+                            }else{
+                                _x++;
+                            }
+                        }
+                    }
+
+                    if(_y>=(img.height-oC.height)){
+
+                        _y = img.height/2-oC.height;
+
+                    }
+
+                    oGC.drawImage(img,-img.width/2+oC.width/2+_x,-img.height+oC.height+_y); 
+
+                    requestAnimFrame(draw);          
+                }
+                draw();
+            }
+        }
+    </script>
+
+</head>
+	
+	<body> 
+		<div id="viewportdiv">
+		   <canvas id="canvas" width="375" height="667"><span>不支持canvas浏览器</span></canvas>
+		</div>
+	</body>
+</html>

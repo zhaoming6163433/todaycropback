@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>canvas布局适配</title>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui" />
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+            font-size: 0;
+            text-align: center;
+		}	
+        #canvas{
+            background-color:#ffffff;
+        }
+        #img1{
+			position:absolute;
+			top:200px;
+			left:0;
+            background-color:#ffffff;
+        }
+	</style>
+	
+	<script>
+        window.onload = function(){
+            var oImg = document.getElementById('img1');
+
+            var oC = document.getElementById('canvas'); 
+
+            var oGC = oC.getContext('2d');
+
+			oGC.globalAlpha = 0.5;
+			oGC.fillStyle="red";
+			oGC.fillRect(20,20,75,50);
+			oGC.globalCompositeOperation="source-over";
+			oGC.fillStyle="blue";
+			oGC.fillRect(50,50,75,50);
+
+
+            oGC.fillStyle="red";
+			oGC.fillRect(150,20,75,50);
+			oGC.globalCompositeOperation="destination-over";
+			oGC.fillStyle="blue";
+			oGC.fillRect(180,50,75,50);
+
+            oImg.src = oC.toDataURL();
+
+        }
+    </script>
+
+</head>
+	
+	<body> 
+		<div id="viewportdiv">
+           <canvas id="canvas" width="375" height="667"><span>不支持canvas浏览器</span></canvas>
+           <img src="" id="img1"/>
+		</div>
+	</body>
+</html>

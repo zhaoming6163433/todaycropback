@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background:#000000;
+            color:#ffffff;
+        }
+        #c1{
+            background:#ffffff;
+        }
+    </style>
+    <script>
+            window.onload = function(){
+                
+                var oC = document.getElementById('c1');
+
+                var oGC = oC.getContext('2d');
+
+                var ali = document.getElementsByTagName('li');
+
+                for(var i=0;i<ali.length;i++){
+                    ali[i].onclick = function(){
+                        var str = this.innerHTML;
+
+                        var h = 180;
+
+                        var timer = null;
+                        clearInterval(timer);
+                        var iNow = 0;
+                        oGC.clearRect(0,0,oC.width,oC.height);
+
+                        oGC.font =  h+ 'px impact';
+
+                        oGC.fillStyle = 'red';
+
+                        oGC.textBaseline = 'top';
+
+                        var w = oGC.measureText(str).width;
+
+                        oGC.fillText(str,(oC.width-w)/2,(oC.height -h)/2);
+
+                        var oImg = oGC.getImageData((oC.width-w)/2,(oC.height -h)/2,w,h);
+                        oGC.clearRect(0,0,oC.width,oC.height);
+
+                        var arr = randomArr(w*h,w*h/10);
+                        var newImg = oGC.createImageData(w,h);
+
+                        timer = setInterval(function(){
+                            for(var i=0;i<arr[iNow].length;i++){
+                                newImg.data[4*arr[iNow][i]] = oImg.data[4*arr[iNow][i]];
+                                newImg.data[4*arr[iNow][i]+1] = oImg.data[4*arr[iNow][i]+1];
+                                newImg.data[4*arr[iNow][i]+2] = oImg.data[4*arr[iNow][i]+2];
+                                newImg.data[4*arr[iNow][i]+3] = oImg.data[4*arr[iNow][i]+3];
+                            }
+
+                            oGC.putImageData(newImg,(oC.width-w)/2,(oC.height -h)/2);
+
+                            if(iNow == 9){
+                                iNow = 0;
+                                clearInterval(timer);
+                            }else{
+                                iNow++;
+                            }
+                        },200);
+                        
+                    }
+                }
+                //随机像素值
+                function randomArr(iAll,iNow){
+                    var arr = [];
+                    var allArr = [];
+                    for(var i=0;i<iAll;i++){
+                        arr.push(i);
+                    }
+                    for (var j=0;j<iAll/iNow;j++){
+
+                        var newArr = [];
+
+                        for(var i=0;i<iNow;i++){
+                            newArr.push( arr.splice( Math.floor( Math.random()*arr.length) ,1) );
+                        }
+
+                        allArr.push(newArr);
+                    }
+                    
+                    return allArr;
+                }
+            }
+            
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="400" height="400">
+        <span>不支持canvas浏览器</span>
+    </canvas><!-- 默认：宽300 高150 -->
+    <div style="float:left">
+        <ul >
+            <li>我</li>
+            <li>的</li>
+            <li>课</li>
+            <li>堂</li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>canvas布局适配</title>
+	<meta charset="utf-8">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.01, minimal-ui" />
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+            font-size: 0;
+            text-align: center;
+		}	
+        #canvas{
+            background-color:#ffffff;
+        }
+  
+	</style>
+	
+	<script>
+        window.onload = function(){
+            var oImg = document.getElementById('img1');
+
+            var oC = document.getElementById('canvas'); 
+
+            var oGC = oC.getContext('2d');
+
+            var c1 = new Shape(100,100,50);
+            var c2 = new Shape(200,200,50);
+
+            oC.onmousedown = function(ev){
+                var ev = ev || window.event;
+                var point = {
+                    x : ev.clientX - oC.offsetLeft,
+                    y : ev.clientY - oC.offsetTop
+                }
+                c1.reDraw(point);
+                c2.reDraw(point);
+            }
+            
+            c1.click = function(){
+                alert(123);
+            }
+
+            c2.click = function(){
+                alert(456);
+            }
+
+            function Shape(x,y,r){
+                this.x = x;
+                this.y = y;
+                this.r = r;
+
+                oGC.beginPath();
+                oGC.arc(this.x,this.y,this.r,0,360*Math.PI/180,false);
+                oGC.closePath();
+                oGC.fill();
+            }
+            
+            Shape.prototype.reDraw = function(point){
+                //isPointInPath针对的最新属性，所有需要重绘
+                oGC.beginPath();
+                oGC.arc(this.x,this.y,this.r,0,360*Math.PI/180,false);
+                oGC.closePath();
+                oGC.fill();
+
+                if( oGC.isPointInPath(point.x,point.y)){
+                    this.click();
+                }
+            }
+        }
+    </script>
+
+</head>
+	
+	<body> 
+		<div id="viewportdiv">
+           <canvas id="canvas" width="375" height="667"><span>不支持canvas浏览器</span></canvas>
+           
+		</div>
+	</body>
+</html>
