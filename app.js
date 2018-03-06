@@ -33,6 +33,7 @@ app.all('/api/*', function(req, res, next) {
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
 app.use('/public',express.static(__dirname+'/public'));
 app.use('/todaypocket',express.static(__dirname+'/todaypocket'));
+app.use('/pysical',express.static(__dirname+'/pysical'));
 app.use('/canvas',express.static(__dirname+'/canvas'));
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
