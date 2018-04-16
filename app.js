@@ -34,6 +34,7 @@ app.all('/api/*', function(req, res, next) {
 app.use('/public',express.static(__dirname+'/public'));
 app.use('/todaypocket',express.static(__dirname+'/todaypocket'));
 app.use('/medicalOrg',express.static(__dirname+'/medicalOrg'));
+app.use('/data_calculate',express.static(__dirname+'/data_calculate'));
 app.use('/canvas',express.static(__dirname+'/canvas'));
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
