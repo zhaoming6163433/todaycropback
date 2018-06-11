@@ -1,0 +1,101 @@
+/*表格样式*/
+.el-table__body,.el-table__header{
+    border-collapse: collapse!important;
+}
+.el-table--fit{
+    border: 1px solid #e5e5e5!important;
+}
+.el-table thead{
+    color:$gray!important;
+    font-weight: bold!important;
+}
+.el-table th{
+    font-size:.8rem!important;
+    background-color:$pageback!important;
+}
+.el-table td{
+    font-size:.7rem;
+}
+.el-table td, .el-table th{
+    padding:.5rem 0;
+    border-top: 1px solid $bordercolor;
+    border-left: 1px solid $bordercolor;
+}
+.el-button--text{
+    color:$topgreen!important;
+}
+.el-button--text:hover{
+    color:$logoback!important;
+}
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+    background-color:$pageback!important;
+}
+.el-table .caret-wrapper{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    height: 34px;
+    width: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: initial;
+    position: relative;
+}
+.el-table .sort-caret.ascending {
+    border-bottom-color: #c0c4cc;
+    top: 5px;
+}
+.el-table .sort-caret.descending {
+    border-top-color: #c0c4cc;
+    bottom: 7px;
+}
+.el-table .ascending .sort-caret.ascending {
+    border-bottom-color: #409eff;
+}
+.el-table .descending .sort-caret.descending {
+    border-top-color: #409eff;
+}
+.el-table .sort-caret {
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    position: absolute;
+    left: 7px;
+}
+/*去掉boxshadow*/
+.el-radio-button:focus:not(.is-focus):not(:active){
+    box-shadow:none!important;
+}
+/*输入框样式*/
+.inputsize{
+    width:15.5rem;
+    .el-input__inner{
+        border-radius: 2px;
+        height:2.25rem;
+        font-size: .8rem;
+        padding-right:1.5rem;
+    }
+    .el-textarea__inner{
+        border-radius: 2px;
+        font-size: .8rem;
+    }
+}
+.inputsizeout2{
+    .el-form-item{
+        margin-bottom: .8rem;
+    }
+}
+.inputsize2{
+    @include wh(15.5rem,1.75rem);
+    .el-input__inner{
+        border-radius: 2px;
+        height:1.75rem;
+        font-size: .9rem;
+        padding-right:1.5rem;
+    }
+}
+.el-form-item__label{
+    font-size: 0.8rem;
+    color:$gray;
+}
+
