@@ -31,7 +31,7 @@ app.all('/api/*', function(req, res, next) {
 });
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
-app.use('/public',express.static(__dirname+'/projectshow/public'));
+app.use('/public',express.static(__dirname+'/public'));
 app.use('/todaypocket',express.static(__dirname+'/projectshow/todaypocket'));
 app.use('/medicalOrg',express.static(__dirname+'/projectshow/medicalOrg'));
 app.use('/data_calculate',express.static(__dirname+'/projectshow/data_calculate'));
