@@ -23,7 +23,7 @@ var config = require('./config')
 //这句代码需要在express.static上面
 const root = __dirname + '/todaypocket';
 app.use(express.static(root));
-app.use(history('projectshow/todaypocket/index.html', { root: root }));
+app.use(history('/projectshow/todaypocket/index.html', { root: root }));
 
 //设置跨域
 app.all('/api/*', function(req, res, next) {
