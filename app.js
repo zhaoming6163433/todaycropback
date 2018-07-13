@@ -15,13 +15,13 @@ var cookie = require('cookie-parser');
 //创建app应用
 var app = express();
 //引入history处理跳转hash中间件
-//var history = require('connect-history-api-fallback');
+var history = require('connect-history-api-fallback');
 
 var User = require('./models/User');
 var config = require('./config')
 
 //这句代码需要在express.static上面
- //app.use(history());
+ app.use(history());
 
 //设置跨域
 app.all('/api/*', function(req, res, next) {
@@ -38,13 +38,13 @@ app.all('/api/*', function(req, res, next) {
 
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
-app.use('/public',express.static(__dirname+'/public'));
-app.use('/todaypocket',express.static(__dirname+'/projectshow/todaypocket'));
-app.use('/medicalOrg',express.static(__dirname+'/projectshow/medicalOrg'));
-app.use('/data_calculate',express.static(__dirname+'/projectshow/data_calculate'));
-app.use('/data_bohai',express.static(__dirname+'/projectshow/data_bohai'));
-app.use('/canvas',express.static(__dirname+'/projectshow/canvas'));
-app.use('/zhaopin',express.static(__dirname+'/projectshow/zhaopin'));
+// app.use('/public',express.static(__dirname+'/public'));
+// app.use('/todaypocket',express.static(__dirname+'/projectshow/todaypocket'));
+// app.use('/medicalOrg',express.static(__dirname+'/projectshow/medicalOrg'));
+// app.use('/data_calculate',express.static(__dirname+'/projectshow/data_calculate'));
+// app.use('/data_bohai',express.static(__dirname+'/projectshow/data_bohai'));
+// app.use('/canvas',express.static(__dirname+'/projectshow/canvas'));
+// app.use('/zhaopin',express.static(__dirname+'/projectshow/zhaopin'));
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
 app.engine('html',swig.renderFile);
