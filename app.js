@@ -15,7 +15,7 @@ var cookie = require('cookie-parser');
 //创建app应用
 var app = express();
 //引入history处理跳转hash中间件
-// var history = require('connect-history-api-fallback');
+var history = require('connect-history-api-fallback');
 
 var User = require('./models/User');
 var config = require('./config')
@@ -33,11 +33,7 @@ app.all('/api/*', function(req, res, next) {
 });
 
 //这句代码需要在express.static上面
-// app.use(history(
-//     {
-//         htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-//     }
-// ));
+app.use(history());
 
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
