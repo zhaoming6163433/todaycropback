@@ -21,7 +21,7 @@ var User = require('./models/User');
 var config = require('./config')
 
 //这句代码需要在express.static上面
-const root = __dirname + '/projectshow/todaypocket';
+const root = __dirname + '/todaypocket';
 app.use(express.static(root));
 app.use(history('projectshow/todaypocket/index.html', { root: root }));
 
