@@ -15,13 +15,13 @@ var cookie = require('cookie-parser');
 //创建app应用
 var app = express();
 //引入history处理跳转hash中间件
-//var history = require('connect-history-api-fallback');
+var history = require('connect-history-api-fallback');
 
 var User = require('./models/User');
 var config = require('./config')
 
 //这句代码需要在express.static上面
-// app.use(history());
+ app.use(history());
 
 //设置跨域
 app.all('/api/*', function(req, res, next) {
