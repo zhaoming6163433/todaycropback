@@ -20,6 +20,9 @@ var history = require('connect-history-api-fallback');
 var User = require('./models/User');
 var config = require('./config')
 
+//这句代码需要在express.static上面
+app.use(history());
+
 //设置跨域
 app.all('/api/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", req.get('origin'));
@@ -32,8 +35,6 @@ app.all('/api/*', function(req, res, next) {
     next();
 });
 
-//这句代码需要在express.static上面
-app.use(history());
 
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回__dirname+'/public'下的文件
