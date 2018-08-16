@@ -105,6 +105,6 @@ mongoose.connect(config.dburl, { useMongoClient: true },function(err){
         console.log('数据库连接失败');
     }else{
         console.log('数据库连接成功');
-        app.listen(80);
+        app.listen(8081);
     }
 });
