@@ -47,6 +47,7 @@ app.use('/canvas',express.static(__dirname+'/projectshow/canvas'));
 app.use('/zhaopin',express.static(__dirname+'/projectshow/zhaopin'));
 app.use('/pwatest',express.static(__dirname+'/projectshow/pwatest'));
 app.use('/mdspro',express.static(__dirname+'/projectshow/mdspro'));
+app.use('/wifipro',express.static(__dirname+'/projectshow/wifipro'));
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
 app.engine('html',swig.renderFile);
