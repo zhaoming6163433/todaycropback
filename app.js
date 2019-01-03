@@ -49,6 +49,8 @@ app.use('/pwatest',express.static(__dirname+'/projectshow/pwatest'));
 app.use('/mdspro',express.static(__dirname+'/projectshow/mdspro'));
 app.use('/wifipro',express.static(__dirname+'/projectshow/wifipro'));
 app.use('/wifiprotime',express.static(__dirname+'/projectshow/wifiprotime'));
+app.use('/cast_shoe',express.static(__dirname+'/projectshow/cast_shoe'));
+
 //定义当前应用所使用都模板引擎
 //第一个参数模板名称，第二个参数模板方法
 app.engine('html',swig.renderFile);
